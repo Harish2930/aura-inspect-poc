@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.db
+dataset/_inspections/
+.streamlit/
+.DS_Store
