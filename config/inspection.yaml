@@ -1,0 +1,59 @@
+# AuraInspect — client/product configuration
+# The inspection engine must not hard-code client-specific logic.
+# Swap this file to re-target AuraInspect at a different client/product.
+
+client:
+  name: "Alubee"
+
+product:
+  name: "Aluminium Die Cast Component"
+  component_label: "ALUMINIUM_DIE_CAST_PART"
+
+inspection:
+  conditions:
+    - GOOD
+    - DEFECTIVE
+    - UNCERTAIN
+
+defects:
+  - SCRATCH
+  - DENT
+  - FLASH
+  - CRACK
+  - FLOW_MARK
+  - BLISTER
+  - DISCOLORATION
+  - OTHER
+
+severity:
+  - LOW
+  - MEDIUM
+  - HIGH
+
+confidence_threshold: 0.75
+
+# --- Image quality gate thresholds ---
+quality:
+  min_laplacian_variance: 80.0   # below this => image considered blurry
+  min_mean_brightness: 40        # below this (0-255) => too dark
+  max_mean_brightness: 235       # above this => blown out / too bright
+  min_resolution_px: 224         # shorter side must be at least this many px
+
+# --- Camera / capture behavior ---
+camera:
+  device_index: 0
+  cooldown_seconds: 2.0          # don't call the AI more often than this
+  frame_stability_frames: 5      # frames of low motion required before auto-trigger
+
+# --- AI provider ---
+ai:
+  provider: "gemini"             # anthropic | openai | gemini
+  model: "gemini-3.8-flash"
+  max_tokens: 1000
+  temperature: 0.0
+
+database:
+  path: "aura_inspect.db"
+
+storage:
+  image_dir: "dataset/_inspections"
